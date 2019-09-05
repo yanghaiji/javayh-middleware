@@ -1,0 +1,47 @@
+
+server:
+  port: 8002
+  servlet:
+    context-path: /
+## consumer配置
+## springboot整合rabbitmq的基本配置
+spring:
+  application:
+    name: rabbitmq-consumer
+  rabbitmq:
+    addresses: 192.168.42.30:5672
+    username: admin
+    password: Tk2019!
+    #虚拟主机(一个RabbitMQ服务可以配置多个虚拟主机，
+    #每一个虚拟机主机之间是相互隔离，相互独立的，
+    #授权用户到指定的virtual-host就可以发送消息到指定队列)
+    virtual-host: dev
+    ## 消费端配置
+    listener:
+      simple:
+        concurrency: 1 # 最小消费者数量
+        acknowledge-mode: manual #手动消费，默认是自动消费
+        max-concurrency: 10 # 最大消费者数量
+        prefetch: 1
+        retry:
+          enabled: true     #是否支持重试 默认支持
+  datasource:
+    url: jdbc:mysql://localhost:3306/rabbitmq?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+    driverClassName: com.mysql.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.javayh.entity
+  configuration:
+    map-underscore-to-camel-case: true  #开启驼峰命名,l_name -> lName
+    jdbc-type-for-null: NULL
+    lazy-loading-enabled: true
+    aggressive-lazy-loading: true
+    cache-enabled: true #开启二级缓存
+    call-setters-on-nulls: true #map空列不显示问题
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  level:
+    com.javayh.mapper: DEBUG
