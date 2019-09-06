@@ -1,5 +1,6 @@
 package com.javayh.receive;
 
+import com.javayh.constants.AckAction;
 import com.javayh.entity.Order;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +30,6 @@ public class TopicService {
 
     @RabbitHandler
     public void receiveMessage(@Payload Order order, @Headers Map<String,Object> headers, Channel channel) throws IOException {
-        //消费者操作
-        log.info("---------收到消息，开始消费---------");
-        log.info("订单ID："+order.getId());
         /**
          * Delivery Tag 用来标识信道中投递的消息。RabbitMQ 推送消息给 Consumer 时，会附带一个 Delivery Tag，
          * 以便 Consumer 可以在消息确认时告诉 RabbitMQ 到底是哪条消息被确认了。
@@ -43,8 +41,39 @@ public class TopicService {
          *  如果为 true，则额外将比第一个参数指定的 delivery tag 小的消息一并确认
          */
         boolean multiple = false;
-        //ACK,确认一条消息已经被消费
-        channel.basicAck(deliveryTag,multiple);
+        /*应答模式*/
+        String ackAction = AckAction.ACK_SUCCESSFUL;
+        try{
+            //消费者操作
+            log.info("---------收到消息，开始消费---------");
+            log.info("订单ID："+order.getId());
+        }catch (Exception e){
+            //这里需要根据也无需求，看错误方式是否可以重新入队
+            //需要考虑全面，否则会造成MQ阻塞，一直循环调用
+            String message = e.getMessage();
+            log.info(message);
+            if(message == null){
+                ackAction = AckAction.ACK_REJECT;
+            }
+            if(message != null){
+                ackAction = AckAction.ACK_RETRY;
+            }
+        }finally {
+            //消费失败被拒绝 应答模式
+            //如果设置为true ，则会添加在队列的末端
+            //channel.basicNack 消费失败重新入队 多条
+            //channel.basicReject 消费失败重新入队 只能操作单条
+            //channel.basicReject(deliveryTag,true);
+            // 通过finally块来保证Ack/Nack会且只会执行一次
+            if (ackAction == AckAction.ACK_SUCCESSFUL) {
+                //ACK,确认一条消息已经被消费
+                channel.basicAck(deliveryTag,multiple);
+            } else if (ackAction == AckAction.ACK_RETRY) {
+                channel.basicNack(deliveryTag, false, true);
+            } else {
+                channel.basicNack(deliveryTag, false, false);
+            }
+        }
         /*
          * “channel.basicQos(10)” 这个方法来设置当前channel的prefetch count。
          * 也可以通过配置文件设置: spring.rabbitmq.listener.simple.prefetch=10
