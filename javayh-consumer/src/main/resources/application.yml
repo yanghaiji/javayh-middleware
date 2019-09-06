@@ -22,7 +22,7 @@ spring:
         concurrency: 1 # 最小消费者数量
         acknowledge-mode: manual #手动消费，默认是自动消费
         max-concurrency: 10 # 最大消费者数量
-        prefetch: 1
+        prefetch: 150 # （unack消息的积压问题） 最大同时处理的数量
         retry:
           enabled: true     #是否支持重试 默认支持
   datasource:

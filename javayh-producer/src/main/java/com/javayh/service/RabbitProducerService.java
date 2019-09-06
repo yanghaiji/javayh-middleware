@@ -18,7 +18,9 @@ import javax.annotation.PostConstruct;
 
 import java.util.Date;
 
+import static com.javayh.constants.StaticNumber.IN_DELIVERY;
 import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
+import static com.javayh.constants.StaticNumber.SUCCESSFUL_DELIVERY;
 import static com.javayh.constants.StaticNumber.TOPIC_EXCHANGE;
 
 /**
@@ -63,7 +65,7 @@ public class RabbitProducerService implements RabbitTemplate.ConfirmCallback, Ra
         brokerMessageLog.setMessageId(order.getMessageId());
         brokerMessageLog.setMessage(FastJsonConvertUtil.convertObjectToJSON(order));
         // 设置消息状态为0 表示发送中
-        brokerMessageLog.setStatus("0");
+        brokerMessageLog.setStatus(IN_DELIVERY);
         // 设置消息未确认超时时间窗口为 一分钟
         brokerMessageLog.setNextRetry(DateUtils.addMinutes(orderTime,1*60000));
         brokerMessageLog.setCreateTime(new Date());
@@ -90,14 +92,16 @@ public class RabbitProducerService implements RabbitTemplate.ConfirmCallback, Ra
         if (ack) {
             log.info("消息发送成功" + correlationData);
             //如果confirm返回成功 则进行更新
-            brokerMessageLogMapper.changeBrokerMessageLogStatus(messageId, "1", new Date());
+            brokerMessageLogMapper.changeBrokerMessageLogStatus(messageId, SUCCESSFUL_DELIVERY, new Date());
         } else {
             log.info("消息发送失败:" + cause);
         }
     }
 
     /**
-     * @Description  消息没有正确到达队列时触发回调，如果正确到达队列不执行
+     * @Description   可以确认消息从EXchange路由到Queue失败,
+     *                注意:
+     *                这里的回调是一个失败回调, 只有消息从Exchange路由到Queue失败才会回调这个方法
      * @author Dylan
      * @date 2019/9/5
      * @param message

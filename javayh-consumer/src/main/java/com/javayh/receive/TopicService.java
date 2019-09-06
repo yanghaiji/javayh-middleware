@@ -45,6 +45,14 @@ public class TopicService {
         boolean multiple = false;
         //ACK,确认一条消息已经被消费
         channel.basicAck(deliveryTag,multiple);
+        /*
+         * “channel.basicQos(10)” 这个方法来设置当前channel的prefetch count。
+         * 也可以通过配置文件设置: spring.rabbitmq.listener.simple.prefetch=10
+         * RabbitMQ官方给出的建议是prefetch count一般设置在100 - 300之间。
+         * 也就是一个消费者服务最多接收到100 - 300个message来处理，允许处于unack状态。
+         * 这个状态下可以兼顾吞吐量也很高，同时也不容易造成内存溢出的问题。
+         */
+//        channel.basicQos(150);
     }
 }
 

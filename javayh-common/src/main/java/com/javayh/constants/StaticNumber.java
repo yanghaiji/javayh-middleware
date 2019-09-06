@@ -32,4 +32,7 @@ public interface StaticNumber {
     String TOPIC_EXCHANGE = "javayh.topic";
     String TOPIC_KEY = "javayh.topic.key";
 
+    String IN_DELIVERY = "0";
+    String SUCCESSFUL_DELIVERY = "1";
+    String FAILURE_DELIVERY = "2";
 }
