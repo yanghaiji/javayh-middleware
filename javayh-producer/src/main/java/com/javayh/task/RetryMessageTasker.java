@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.List;
 
+import static com.javayh.constants.StaticNumber.FAILURE_DELIVERY;
+
 @Slf4j
 @Component
 public class RetryMessageTasker {
@@ -33,7 +35,7 @@ public class RetryMessageTasker {
         list.forEach(messageLog -> {
             if(messageLog.getTryCount() >= 3){
                 //update fail message
-                brokerMessageLogMapper.changeBrokerMessageLogStatus(messageLog.getMessageId(), "2", new Date());
+                brokerMessageLogMapper.changeBrokerMessageLogStatus(messageLog.getMessageId(), FAILURE_DELIVERY, new Date());
                 log.info("尝试次数"+messageLog.getTryCount());
             } else {
                 // resend
