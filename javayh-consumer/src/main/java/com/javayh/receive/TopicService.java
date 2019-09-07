@@ -1,17 +1,22 @@
 package com.javayh.receive;
 
 import com.javayh.constants.AckAction;
+import com.javayh.dao.ErrorAckMessageDao;
+import com.javayh.entity.ErrorAckMessage;
 import com.javayh.entity.Order;
+import com.javayh.redis.RedisUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
@@ -27,6 +32,12 @@ import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
 @Component
 @RabbitListener(queues = JAVAYOHO_TOPIC)
 public class TopicService {
+
+    @Autowired
+    private RedisUtil redisUtil;
+
+    @Autowired
+    private ErrorAckMessageDao errorAckMessageDao;
 
     @RabbitHandler
     public void receiveMessage(@Payload Order order, @Headers Map<String,Object> headers, Channel channel) throws IOException {
@@ -47,16 +58,45 @@ public class TopicService {
             //消费者操作
             log.info("---------收到消息，开始消费---------");
             log.info("订单ID："+order.getId());
+            String messageId = order.getMessageId();
+            Integer.valueOf(messageId);
         }catch (Exception e){
             //这里需要根据也无需求，看错误方式是否可以重新入队
             //需要考虑全面，否则会造成MQ阻塞，一直循环调用
             String message = e.getMessage();
             log.info(message);
-            if(message == null){
+            //TODO 添加尝试次数显示，达到最大限制次数，消费依旧失败，
+            //不在进行尝试，存入库中，后期手动维护
+            if(message == null){//直接入库
                 ackAction = AckAction.ACK_REJECT;
+                ErrorAckMessage errorAckMessage =
+                                ErrorAckMessage.builder().
+                                        id(order.getMessageId()).
+                                        errorMethod("").
+                                        errorMessage(message).
+                                        createTime(new Date()).
+                                        status("2").
+                                        remarks("消费失败，为入队，请手动处理").
+                                        build();
+                errorAckMessageDao.insertAll(errorAckMessage);
             }
-            if(message != null){
+            if(message != null){//达到最大次数入库
                 ackAction = AckAction.ACK_RETRY;
+                long incr = redisUtil.incr(order.getMessageId(), 1);
+                //重复尝试入队三次，在此消费失败将放弃入队
+                if(incr>3){
+                    ackAction = AckAction.ACK_REJECT;
+                    ErrorAckMessage errorAckMessage =
+                            ErrorAckMessage.builder().
+                                    id(order.getMessageId()).
+                                    errorMethod("").
+                                    errorMessage(message).
+                                    createTime(new Date()).
+                                    status("1").
+                                    remarks("消费失败，入队尝试次数达到最大次数，请手动处理").
+                                    build();
+                    errorAckMessageDao.insertAll(errorAckMessage);
+                }
             }
         }finally {
             //消费失败被拒绝 应答模式
@@ -68,9 +108,9 @@ public class TopicService {
             if (ackAction == AckAction.ACK_SUCCESSFUL) {
                 //ACK,确认一条消息已经被消费
                 channel.basicAck(deliveryTag,multiple);
-            } else if (ackAction == AckAction.ACK_RETRY) {
+            } else if (ackAction == AckAction.ACK_RETRY) {//重新加入队列
                 channel.basicNack(deliveryTag, false, true);
-            } else {
+            } else {//放弃入队，避免消息丢失，入库处理，后期可手动维护
                 channel.basicNack(deliveryTag, false, false);
             }
         }

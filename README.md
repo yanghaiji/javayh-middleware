@@ -44,6 +44,19 @@
       `message_id` varchar(255) DEFAULT NULL,
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=2018091102 DEFAULT CHARSET=utf8;
+   
+    CREATE TABLE `error_ack_message` (
+    `id`  varchar(64) NOT NULL ,
+    `error_method`  varchar(512) NULL COMMENT '错误方法' ,
+    `error_message`  varchar(255) NULL COMMENT '错误信息' ,
+    `status`  varchar(2) NOT NULL COMMENT '状态' ,
+    `message`  varchar(512) NOT NULL COMMENT '消息实体' ,
+    `create_time`  date NOT NULL DEFAULT 创建时间 ,
+    `modify_time`  date NULL DEFAULT 修改时间 ,
+    `remarks`  varchar(256) NOT NULL COMMENT '备注' ,
+    PRIMARY KEY (`id`)
+    )
+    ;
 
 
 ## 三、配置介绍
