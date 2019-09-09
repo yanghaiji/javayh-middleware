@@ -4,7 +4,7 @@ package com.javayh.constants;
  * @author Dylan Yang
  * @Description: StaticNumber
  * @Title: StaticNumber
- * @ProjectName javayh-cloud
+ * @ProjectName javayh-common
  * @date 2019/7/17 15:15
  */
 public interface StaticNumber {

@@ -73,12 +73,12 @@ public class TopicService {
             //需要考虑全面，否则会造成MQ阻塞，一直循环调用
             String message = e.getMessage();
             log.info(message);
-            //TODO 添加尝试次数显示，达到最大限制次数，消费依旧失败，
+            //添加尝试次数显示，达到最大限制次数，消费依旧失败，
             //不在进行尝试，存入库中，后期手动维护
             if(message == null){//直接入库
                 ackAction = AckAction.ACK_REJECT;
                 ErrorAckMessage errorAckMessage =
-                                ErrorAckMessage.builder().
+                        ErrorAckMessage.builder().
                                         id(order.getMessageId()).
                                         errorMethod(className+"."+Thread.currentThread().getStackTrace()[1].getMethodName()).
                                         errorMessage(message).
