@@ -4,17 +4,21 @@
 官方推出的六种模式
 ### 1.1 "Hello World!" 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720145646828.png)
-######`简单模式 一对一生产消费`
+###### 简单模式 一对一生产消费
+
 ### 1.2 Work Queues
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720145947947.png)
-######`一个生产者对应多个消费队列`
-###### `默认情况下，RabbitMQ将按顺序将每条消息发送给下一个消费者。平均而言，每个消费者将获得相同数量的消息`
+###### 一个生产者对应多个消费队列
+###### 默认情况下，RabbitMQ将按顺序将每条消息发送给下一个消费者。平均而言，每个消费者将获得相同数量的消息
+
 ### 1.3 Publish/Subscribe
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019072015044025.png)
-######`订阅发布：多个队列订阅一个交换机，每个队列都会接收到自己订阅的交换机`
+###### 订阅发布：多个队列订阅一个交换机，每个队列都会接收到自己订阅的交换机
+
 ### 1.4 Routing
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019072015100250.png)
-######`路由模式：对消息进行过滤，把控消费队列获取消息的信息量`
+###### 路由模式：对消息进行过滤，把控消费队列获取消息的信息量
+
 ### 1.5 Topics
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720151402627.png)
 ###### 订阅发布
@@ -38,8 +42,8 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 
 #### **测试结论**
 ![full stack developer tutorial](https://img-blog.csdn.net/20170604013849172?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-######在服务端处理同步发送的性能上，Kafka>RocketMQ>RabbitMQ。
-######测试环境
+###### 在服务端处理同步发送的性能上，Kafka>RocketMQ>RabbitMQ。
+###### 测试环境
 ###### 服务端为单机部署，机器配置如下：
 ![在这里插入图片描述](https://img-blog.csdn.net/20170604013940344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 #####应用版本：
@@ -52,16 +56,16 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ### 场景说明：
  ### 2.1用户注册后，需要发注册邮件和注册短信,传统的做法有两种
  ###### (1)串行方式:将注册信息写入数据库后,发送注册邮件,再发送注册短信,以上三个任务全部完成后才返回给客户端。
- ###### 这有一个问题是,邮件,短信并不是必须的,它只是一个通知,而这种做法让客户端等待没有必要等待的东西. `
+ ###### 这有一个问题是,邮件,短信并不是必须的,它只是一个通知,而这种做法让客户端等待没有必要等待的东西. 
  ![在这里插入图片描述](https://img-blog.csdn.net/20170209145852454?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ###### (2)并行方式:将注册信息写入数据库后,发送邮件的同时,发送短信,以上三个任务完成后,
-###### 返回给客户端,并行的方式能提高处理的时间。 `
+###### 返回给客户端,并行的方式能提高处理的时间。 
  ![在这里插入图片描述](https://img-blog.csdn.net/20170209150218755?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ###### 假设三个业务节点分别使用50ms,串行方式使用时间150ms,并行使用时间100ms。
 ###### 虽然并性已经提高的处理时间,但是,前面说过,邮件和短信对我正常的使用网站没有任何影响，
 ###### 客户端没有必要等着其发送完成才显示注册成功,英爱是写入数据库后就返回.  
 ###### (3)消息队列 
-###### 引入消息队列后，把发送邮件,短信不是必须的业务逻辑异步处理 `
+###### 引入消息队列后，把发送邮件,短信不是必须的业务逻辑异步处理 
  ![在这里插入图片描述](https://img-blog.csdn.net/20170209150824008?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ###### 由此可以看出,引入消息队列后，用户的响应时间就等于写入数据库的时间+写入消息队列的时间(可以忽略不计),引入消息队列后处理后,响应时间是串行的3倍,是并行的2倍。`
 
