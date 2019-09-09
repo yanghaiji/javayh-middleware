@@ -31,4 +31,4 @@ mybatis:
 
 logging:
   level:
-    com.javayh.mapper: DEBUG
+    com.javayh.dao: DEBUG
