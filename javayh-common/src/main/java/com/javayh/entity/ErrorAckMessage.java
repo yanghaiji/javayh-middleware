@@ -14,7 +14,7 @@ public class ErrorAckMessage implements Serializable {
     private String errorMessage;
     private String status;
     private String message;
-    private Date createTime;
-    private Date modifyTime;
+    private String createTime;
+    private String modifyTime;
     private String remarks;
 }

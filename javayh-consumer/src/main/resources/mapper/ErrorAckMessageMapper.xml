@@ -3,10 +3,10 @@
 <mapper namespace="com.javayh.dao.ErrorAckMessageDao" >
 
   <insert id="insertAll" parameterType="com.javayh.entity.ErrorAckMessage" >
-    insert into broker_message_log
+    insert into error_ack_message
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        message_id,
+        id,
       </if>
       <if test="errorMethod != null" >
         error_method,
@@ -32,28 +32,28 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
+        #{id},
       </if>
       <if test="errorMethod != null" >
-        #{errorMethod,jdbcType=VARCHAR},
+        #{errorMethod},
       </if>
       <if test="errorMessage != null" >
-        #{errorMessage,jdbcType=INTEGER},
+        #{errorMessage},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
+        #{status},
       </if>
       <if test="message != null" >
-        #{message,jdbcType=TIMESTAMP},
+        #{message},
       </if>
       <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+        #{createTime},
       </if>
       <if test="modifyTime != null" >
-        #{modifyTime,jdbcType=TIMESTAMP},
+        #{modifyTime},
       </if>
        <if test="remarks != null" >
-        #{remarks,jdbcType=TIMESTAMP},
+        #{remarks},
       </if>
     </trim>
   </insert>

@@ -1,12 +1,14 @@
 package com.javayh.receive;
 
 import com.javayh.constants.AckAction;
+import com.javayh.constants.FastJsonConvertUtil;
 import com.javayh.dao.ErrorAckMessageDao;
 import com.javayh.entity.ErrorAckMessage;
 import com.javayh.entity.Order;
 import com.javayh.redis.RedisUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
@@ -19,7 +21,10 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
+import static com.javayh.constants.StaticNumber.CONSUMER_FAILURE;
+import static com.javayh.constants.StaticNumber.CONSUMER_TRY_FAILURE;
 import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
+import static com.javayh.constants.StaticNumber.YMDHMS;
 
 /**
  * @author Dylan Yang
@@ -38,6 +43,9 @@ public class TopicService {
 
     @Autowired
     private ErrorAckMessageDao errorAckMessageDao;
+
+    /*类名*/
+    String  className = this.getClass().getName();
 
     @RabbitHandler
     public void receiveMessage(@Payload Order order, @Headers Map<String,Object> headers, Channel channel) throws IOException {
@@ -72,10 +80,11 @@ public class TopicService {
                 ErrorAckMessage errorAckMessage =
                                 ErrorAckMessage.builder().
                                         id(order.getMessageId()).
-                                        errorMethod("").
+                                        errorMethod(className+"."+Thread.currentThread().getStackTrace()[1].getMethodName()).
                                         errorMessage(message).
-                                        createTime(new Date()).
-                                        status("2").
+                                        createTime(DateFormatUtils.format(new Date(),YMDHMS)).
+                                        status(CONSUMER_FAILURE).
+                                        message(FastJsonConvertUtil.convertObjectToJSON(order)).
                                         remarks("消费失败，为入队，请手动处理").
                                         build();
                 errorAckMessageDao.insertAll(errorAckMessage);
@@ -89,10 +98,11 @@ public class TopicService {
                     ErrorAckMessage errorAckMessage =
                             ErrorAckMessage.builder().
                                     id(order.getMessageId()).
-                                    errorMethod("").
+                                    errorMethod(className+"."+Thread.currentThread().getStackTrace()[1].getMethodName()).
                                     errorMessage(message).
-                                    createTime(new Date()).
-                                    status("1").
+                                    createTime(DateFormatUtils.format(new Date(),YMDHMS)).
+                                    status(CONSUMER_TRY_FAILURE).
+                                    message(FastJsonConvertUtil.convertObjectToJSON(order)).
                                     remarks("消费失败，入队尝试次数达到最大次数，请手动处理").
                                     build();
                     errorAckMessageDao.insertAll(errorAckMessage);
@@ -111,7 +121,12 @@ public class TopicService {
             } else if (ackAction == AckAction.ACK_RETRY) {//重新加入队列
                 channel.basicNack(deliveryTag, false, true);
             } else {//放弃入队，避免消息丢失，入库处理，后期可手动维护
-                channel.basicNack(deliveryTag, false, false);
+                try {
+                    channel.basicNack(deliveryTag, false, false);
+                    Thread.sleep(2000L);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         /*

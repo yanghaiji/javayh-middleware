@@ -32,7 +32,21 @@ public interface StaticNumber {
     String TOPIC_EXCHANGE = "javayh.topic";
     String TOPIC_KEY = "javayh.topic.key";
 
+    /*  生产者  */
+    /*资源投递中*/
     String IN_DELIVERY = "0";
+    /*投递成功*/
     String SUCCESSFUL_DELIVERY = "1";
+    /*投递失败*/
     String FAILURE_DELIVERY = "2";
+
+    /*   消费者   */
+    /*消费成功*/
+    String CONSUMER_SUCCESSFUL = "1";
+    /*消费失败（为尝试）*/
+    String CONSUMER_FAILURE = "2";
+    /*消费失败（达到最大尝试次数）*/
+    String CONSUMER_TRY_FAILURE = "3";
+
+    String YMDHMS = "yyyy-MM-dd HH:mm:ss";
 }
