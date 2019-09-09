@@ -46,8 +46,10 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ###### 测试环境
 ###### 服务端为单机部署，机器配置如下：
 ![在这里插入图片描述](https://img-blog.csdn.net/20170604013940344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
 #####应用版本：
 ![在这里插入图片描述](https://img-blog.csdn.net/20170604014004240?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+
 #####测试脚本
 ![在这里插入图片描述](https://img-blog.csdn.net/20170604014019485?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ###### 原文链接：https://blog.csdn.net/yunfeng482/article/details/72856762
