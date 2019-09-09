@@ -41,12 +41,12 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ######在服务端处理同步发送的性能上，Kafka>RocketMQ>RabbitMQ。
 ######测试环境
 ###### 服务端为单机部署，机器配置如下：
-![full stack developer tutorial](https://img-blog.csdn.net/20170604013940344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![在这里插入图片描述](https://img-blog.csdn.net/20170604013940344?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 #####应用版本：
-![full stack developer tutorial](https://img-blog.csdn.net/20170604014004240?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![在这里插入图片描述](https://img-blog.csdn.net/20170604014004240?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 #####测试脚本
-![full stack developer tutorial](https://img-blog.csdn.net/20170604014019485?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-原文链接：https://blog.csdn.net/yunfeng482/article/details/72856762
+![在这里插入图片描述](https://img-blog.csdn.net/20170604014019485?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveXVuZmVuZzQ4Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### 原文链接：https://blog.csdn.net/yunfeng482/article/details/72856762
 
 ## 三、MQ应用场景
 ### 场景说明：
@@ -66,8 +66,8 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ###### 由此可以看出,引入消息队列后，用户的响应时间就等于写入数据库的时间+写入消息队列的时间(可以忽略不计),引入消息队列后处理后,响应时间是串行的3倍,是并行的2倍。`
 
 ### 2.2 应用解耦
-    场景：双11是购物狂节,用户下单后,订单系统需要通知库存系统,传统的做法就是订单系统调用库存系统的接口. 
- ![这里是插入图片描述](https://img-blog.csdn.net/20170209151602258?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+场景：双11是购物狂节,用户下单后,订单系统需要通知库存系统,传统的做法就是订单系统调用库存系统的接口. 
+![这里是插入图片描述](https://img-blog.csdn.net/20170209151602258?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 ###### 这种做法有一个缺点:
     1.当库存系统出现故障时,订单就会失败。
     2.订单系统和库存系统高耦合. `
@@ -85,7 +85,7 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ![这里是插入图片描述](https://img-blog.csdn.net/20170209161124911?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)     
 ###### 1.用户的请求,服务器收到之后,首先写入消息队列,加入消息队列长度超过最大值,则直接抛弃用户请求或跳转到错误页面. 
 ###### 2.秒杀业务根据消息队列中的请求信息，再做后续处理.
-######原文链接：https://blog.csdn.net/qq_38455201/article/details/80308771
+###### 原文链接：https://blog.csdn.net/qq_38455201/article/details/80308771
 
 ### 四、RabbitMQ 消息传递流程
 ![full stack developer tutorial](doc/image/RabbitMQ消息传流程.png)
