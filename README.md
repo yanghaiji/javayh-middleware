@@ -65,8 +65,9 @@
 2019090914591336.png
 ## 五、RabbitMQ可靠性投递，防止重复消费设计
 ![这里是插入图片描述](https://img-blog.csdnimg.cn/2019090914591336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODkzNzg0MA==,size_16,color_FFFFFF,t_70)
+原图地址:https://blog.csdn.net/weixin_38937840/article/details/100662457
 ## SQL 
-案例sql在doc下SQL小的mysqlinit.sql内
+    案例sql在doc下SQL小的mysqlinit.sql内
 ## 配置介绍
     rabbitmq:
       addresses: ip+port
