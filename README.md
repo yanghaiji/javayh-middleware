@@ -4,61 +4,70 @@
 官方推出的六种模式
 ### 1.1 "Hello World!" 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720145646828.png)
-简单模式 一对一生产消费
+######`简单模式 一对一生产消费`
 ### 1.2 Work Queues
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720145947947.png)
-一个生产者对应多个消费队列
-默认情况下，RabbitMQ将按顺序将每条消息发送给下一个消费者。平均而言，每个消费者将获得相同数量的消息
+######`一个生产者对应多个消费队列`
+###### `默认情况下，RabbitMQ将按顺序将每条消息发送给下一个消费者。平均而言，每个消费者将获得相同数量的消息`
 ### 1.3 Publish/Subscribe
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019072015044025.png)
-订阅发布：多个队列订阅一个交换机，每个队列都会接收到自己订阅的交换机
+######`订阅发布：多个队列订阅一个交换机，每个队列都会接收到自己订阅的交换机`
 ### 1.4 Routing
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2019072015100250.png)
-路由模式：对消息进行过滤，把控消费队列获取消息的信息量
+######`路由模式：对消息进行过滤，把控消费队列获取消息的信息量`
 ### 1.5 Topics
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190720151402627.png)
+###### 订阅发布
+### 二、AMQP模式
+![full stack developer tutorial](doc/image/AMQP.png)
 
-## 二、SQL
--- ----------------------------
--- Table structure for broker_message_log
--- ----------------------------
-    DROP TABLE IF EXISTS `broker_message_log`;
-    CREATE TABLE `broker_message_log` (
-      `message_id` varchar(255) NOT NULL COMMENT '消息唯一ID',
-      `message` varchar(4000) NOT NULL COMMENT '消息内容',
-      `try_count` int(4) DEFAULT '0' COMMENT '重试次数',
-      `status` varchar(10) DEFAULT '' COMMENT '消息投递状态 0投递中，1投递成功，2投递失败',
-      `next_retry` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '下一次重试时间',
-      `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-      `update_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-      PRIMARY KEY (`message_id`)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+## 三、MQ应用场景
+### 场景说明：
+ ### 2.1用户注册后，需要发注册邮件和注册短信,传统的做法有两种
+ ###### (1)串行方式:将注册信息写入数据库后,发送注册邮件,再发送注册短信,以上三个任务全部完成后才返回给客户端。
+ ###### 这有一个问题是,邮件,短信并不是必须的,它只是一个通知,而这种做法让客户端等待没有必要等待的东西. `
+ ![在这里插入图片描述](https://img-blog.csdn.net/20170209145852454?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### (2)并行方式:将注册信息写入数据库后,发送邮件的同时,发送短信,以上三个任务完成后,
+###### 返回给客户端,并行的方式能提高处理的时间。 `
+ ![在这里插入图片描述](https://img-blog.csdn.net/20170209150218755?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### 假设三个业务节点分别使用50ms,串行方式使用时间150ms,并行使用时间100ms。
+###### 虽然并性已经提高的处理时间,但是,前面说过,邮件和短信对我正常的使用网站没有任何影响，
+###### 客户端没有必要等着其发送完成才显示注册成功,英爱是写入数据库后就返回.  
+###### (3)消息队列 
+###### 引入消息队列后，把发送邮件,短信不是必须的业务逻辑异步处理 `
+ ![在这里插入图片描述](https://img-blog.csdn.net/20170209150824008?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### 由此可以看出,引入消息队列后，用户的响应时间就等于写入数据库的时间+写入消息队列的时间(可以忽略不计),引入消息队列后处理后,响应时间是串行的3倍,是并行的2倍。`
 
--- ----------------------------
--- Table structure for t_order
--- ----------------------------
-    DROP TABLE IF EXISTS `t_order`;
-    CREATE TABLE `t_order` (
-      `id` int(11) NOT NULL AUTO_INCREMENT,
-      `name` varchar(255) DEFAULT NULL,
-      `message_id` varchar(255) DEFAULT NULL,
-      PRIMARY KEY (`id`)
-    ) ENGINE=InnoDB AUTO_INCREMENT=2018091102 DEFAULT CHARSET=utf8;
-   
-    CREATE TABLE `error_ack_message` (
-     `id` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-      `error_method` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '错误方法',
-      `error_message` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '错误信息',
-      `status` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '状态',
-      `message` varchar(512) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '消息实体',
-      `create_time` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '创建时间',
-      `modify_time` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '修改时间',
-      `remarks` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
-      PRIMARY KEY (`id`) USING BTREE
-    ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
+### 2.2 应用解耦
+    场景：双11是购物狂节,用户下单后,订单系统需要通知库存系统,传统的做法就是订单系统调用库存系统的接口. 
+ ![这里是插入图片描述](https://img-blog.csdn.net/20170209151602258?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### 这种做法有一个缺点:
+    1.当库存系统出现故障时,订单就会失败。
+    2.订单系统和库存系统高耦合. `
+###### 引入消息队列
+![这里是插入图片描述]( https://img-blog.csdn.net/20170209152116530?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+###### 订单系统:用户下单后,订单系统完成持久化处理,将消息写入消息队列,返回用户订单下单成功。
+###### 库存系统:订阅下单的消息,获取下单消息,进行库操作。 
+###### 就算库存系统出现故障,消息队列也能保证消息的可靠投递,不会导致消息丢失。
+### 2.3流量削峰
+流量削峰一般在秒杀活动中应用广泛 
+    场景:秒杀活动，一般会因为流量过大，导致应用挂掉,为了解决这个问题，一般在应用前端加入消息队列。 
+###### 作用: 
+    1.可以控制活动人数，超过此一定阀值的订单直接丢弃(我为什么秒杀一次都没有成功过呢^^) 
+    2.可以缓解短时间的高流量压垮应用(应用程序按自己的最大处理能力获取订单) 
+![这里是插入图片描述](https://img-blog.csdn.net/20170209161124911?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2hvYW1peWFuZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)     
+###### 1.用户的请求,服务器收到之后,首先写入消息队列,加入消息队列长度超过最大值,则直接抛弃用户请求或跳转到错误页面. 
+###### 2.秒杀业务根据消息队列中的请求信息，再做后续处理.
+######原文链接：https://blog.csdn.net/qq_38455201/article/details/80308771
 
-
-## 三、配置介绍
+### 四、RabbitMQ 消息传递流程
+![full stack developer tutorial](doc/image/RabbitMQ消息传流程.png)
+2019090914591336.png
+## 五、RabbitMQ可靠性投递，防止重复消费设计
+![这里是插入图片描述](https://img-blog.csdnimg.cn/2019090914591336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODkzNzg0MA==,size_16,color_FFFFFF,t_70)
+## SQL 
+案例sql在doc下SQL小的mysqlinit.sql内
+## 配置介绍
     rabbitmq:
       addresses: ip+port
       username: name
@@ -79,7 +88,7 @@
           retry:
             enabled: true     #是否支持重试 默认支持
 
-### 3.1 Auto
+### 注 Auto
     1. 如果消息成功被消费（成功的意思是在消费的过程中没有抛出异常），则自动确认
     2. 当抛出 AmqpRejectAndDontRequeueException 异常的时候，则消息会被拒绝，且 requeue = false（不重新入队列）
     3. 当抛出 ImmediateAcknowledgeAmqpException 异常，则消费者会被确认
