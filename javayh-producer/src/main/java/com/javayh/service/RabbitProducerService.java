@@ -32,7 +32,7 @@ import static com.javayh.constants.StaticNumber.TOPIC_EXCHANGE;
  */
 @Slf4j
 @Service
-public class RabbitProducerService implements RabbitTemplate.ConfirmCallback, RabbitTemplate.ReturnCallback {
+public class RabbitProducerService {
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
@@ -42,13 +42,6 @@ public class RabbitProducerService implements RabbitTemplate.ConfirmCallback, Ra
 
     @Autowired
     private BrokerMessageLogMapper brokerMessageLogMapper;
-
-    @PostConstruct
-    public void init() {
-        rabbitTemplate.setConfirmCallback(this);            //指定 ConfirmCallback
-        rabbitTemplate.setReturnCallback(this);             //指定 ReturnCallback
-
-    }
 
     /**
      * @Description 发送消息
@@ -75,51 +68,6 @@ public class RabbitProducerService implements RabbitTemplate.ConfirmCallback, Ra
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId(order.getMessageId());
        rabbitTemplate.convertAndSend(TOPIC_EXCHANGE,JAVAYOHO_TOPIC,order,correlationData);
-    }
-
-    /**
-     * @Description  只确认消息是否正确到达 Exchange 中
-     * @author Dylan
-     * @date 2019/9/5
-     * @param correlationData
-     * @param ack
-     * @param cause
-     * @return void
-     */
-    @Override
-    public void confirm(CorrelationData correlationData, boolean ack, String cause) {
-        String messageId = correlationData.getId();
-        if (ack) {
-            log.info("消息发送成功" + correlationData);
-            //如果confirm返回成功 则进行更新
-            brokerMessageLogMapper.changeBrokerMessageLogStatus(messageId, SUCCESSFUL_DELIVERY, new Date());
-        } else {
-            log.info("消息发送失败:" + cause);
-        }
-    }
-
-    /**
-     * @Description   可以确认消息从EXchange路由到Queue失败,
-     *                注意:
-     *                这里的回调是一个失败回调, 只有消息从Exchange路由到Queue失败才会回调这个方法
-     * @author Dylan
-     * @date 2019/9/5
-     * @param message
-     * @param replyCode
-     * @param replyText
-     * @param exchange
-     * @param routingKey
-     * @return void
-     */
-    @Override
-    public void returnedMessage(Message message, int replyCode, String replyText,
-                                String exchange, String routingKey) {
-        // 反序列化对象输出
-        log.info("消息主体: " + message);
-        log.info("应答码: " + replyCode);
-        log.info("描述：" + replyText);
-        log.info("消息使用的交换器 exchange : " + exchange);
-        log.info("消息使用的路由键 routing : " + routingKey);
     }
 
 }

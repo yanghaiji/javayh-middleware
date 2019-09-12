@@ -1,11 +1,12 @@
 package com.javayh.dao;
 
 import com.javayh.entity.BrokerMessageLog;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
-
+@Mapper
 public interface BrokerMessageLogMapper {
     /**
      * 查询消息状态为0(发送中) 且已经超时的消息集合
