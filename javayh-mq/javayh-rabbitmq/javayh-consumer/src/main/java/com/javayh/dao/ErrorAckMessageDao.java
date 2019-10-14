@@ -2,8 +2,10 @@ package com.javayh.dao;
 
 import com.javayh.entity.ErrorAckMessage;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface ErrorAckMessageDao {
 
     /**

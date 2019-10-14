@@ -8,6 +8,7 @@ import com.javayh.entity.Order;
 import com.javayh.redis.RedisUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import static com.javayh.constants.StaticNumber.CONSUMER_FAILURE;
-import static com.javayh.constants.StaticNumber.CONSUMER_TRY_FAILURE;
-import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
-import static com.javayh.constants.StaticNumber.YMDHMS;
+import static com.javayh.constants.StaticNumber.*;
 
 /**
  * @author Dylan Yang

@@ -1,13 +1,11 @@
 package com.javayh.controller;
 
-import com.javayh.annotation.AccessLimit;
 import com.javayh.entity.Order;
 import com.javayh.id.Uid;
 import com.javayh.service.RabbitProducerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProducerController {
     @Autowired
     private RabbitProducerService rabbitProducerService;
-    @AccessLimit(maxCount = 2,seconds = 1)
+
     @GetMapping("test")
     public String test(){
         return "测试接口降幂";

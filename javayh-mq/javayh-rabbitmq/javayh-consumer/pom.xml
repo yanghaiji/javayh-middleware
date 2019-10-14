@@ -6,14 +6,14 @@
         <groupId>com.javayh</groupId>
         <artifactId>javayh-rabbitmq</artifactId>
         <version>0.0.1-SNAPSHOT</version> <!-- lookup parent from repository -->
-        <relativePath>../</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.javayh</groupId>
     <artifactId>javayh-consumer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>javayh-consumer</name>
     <description>javayh-consumer</description>
-
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>

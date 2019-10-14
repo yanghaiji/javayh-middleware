@@ -3,8 +3,10 @@ package com.javayh.dao;
 
 import com.javayh.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface OrderMapper {
     int insert(Order record);
     int deleteByPrimaryKey(Integer id);
