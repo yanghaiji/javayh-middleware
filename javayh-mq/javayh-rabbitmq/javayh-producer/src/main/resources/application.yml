@@ -18,6 +18,11 @@ spring:
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    password:
 mybatis:
   type-aliases-package: com.javayh.entity
   configuration:
