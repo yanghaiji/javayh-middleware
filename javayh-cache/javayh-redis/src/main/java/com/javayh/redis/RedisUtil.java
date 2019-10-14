@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  * @author Dylan Yang
  * @Description: RedisUtil
  * @Title: RedisUtil
- * @ProjectName javayh-oauth
+ * @ProjectName javayh-redis
  * @date 2019/6/21 21:41
  */
 @Component
