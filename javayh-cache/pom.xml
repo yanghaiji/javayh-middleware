@@ -6,39 +6,33 @@
         <groupId>com.javayh</groupId>
         <artifactId>javayh-middleware</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.javayh</groupId>
-    <artifactId>javayh-common</artifactId>
+    <artifactId>javayh-cache</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>javayh-common</name>
-    <description>javayh-common</description>
+    <name>javayh-cache</name>
+    <description>Demo project for Spring Boot</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
+    <modules>
+        <module>javayh-redis</module>
+    </modules>
 
     <dependencies>
         <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>RELEASE</version>
+            <groupId>com.javayh</groupId>
+            <artifactId>javayh-config</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>RELEASE</version>
+            <groupId>com.javayh</groupId>
+            <artifactId>javayh-common</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
-        <!--工具类依赖包-->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
+
     </dependencies>
 
     <build>
