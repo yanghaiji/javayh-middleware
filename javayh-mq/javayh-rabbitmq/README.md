@@ -24,7 +24,7 @@
 ###### 订阅发布
 
 ## 二、AMQP模式
-![full stack developer tutorial](doc/image/AMQP.png)
+![full stack developer tutorial](../../doc/image/AMQP.png)
 
 #### RabiitMQ Kafka RocketMQ 性能对比
 
@@ -94,7 +94,7 @@ RabbitMQ的吞吐量5.95w/s，CPU资源消耗较高。它支持AMQP协议，实�
 ###### 原文链接：https://blog.csdn.net/qq_38455201/article/details/80308771
 
 ### 四、RabbitMQ 消息传递流程
-![full stack developer tutorial](doc/image/RabbitMQ消息传流程.png)
+![full stack developer tutorial](../../doc/image/RabbitMQ消息传流程.png)
 2019090914591336.png
 ## 五、RabbitMQ可靠性投递，防止重复消费设计
 ![这里是插入图片描述](https://img-blog.csdnimg.cn/2019090914591336.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODkzNzg0MA==,size_16,color_FFFFFF,t_70)
