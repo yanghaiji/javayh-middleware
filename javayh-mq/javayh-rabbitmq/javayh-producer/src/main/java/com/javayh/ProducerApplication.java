@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Slf4j
 @EnableScheduling
-@MapperScan(value = "com.javayh.*")
 @ComponentScan(value = "com.javayh.*")
 @SpringBootApplication
 public class ProducerApplication {

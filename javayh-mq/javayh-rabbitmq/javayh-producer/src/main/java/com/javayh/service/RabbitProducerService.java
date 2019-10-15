@@ -6,6 +6,7 @@ import com.javayh.dao.OrderMapper;
 import com.javayh.entity.BrokerMessageLog;
 import com.javayh.entity.Order;
 import com.javayh.id.Uid;
+import com.javayh.mq.RabbitSender;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.amqp.core.Message;
@@ -35,13 +36,12 @@ import static com.javayh.constants.StaticNumber.TOPIC_EXCHANGE;
 public class RabbitProducerService {
 
     @Autowired
-    private RabbitTemplate rabbitTemplate;
-
-    @Autowired
     private OrderMapper orderMapper;
 
     @Autowired
     private BrokerMessageLogMapper brokerMessageLogMapper;
+    @Autowired
+    private RabbitSender rabbitSender;
 
     /**
      * @Description 发送消息
@@ -67,7 +67,7 @@ public class RabbitProducerService {
         //构建回调返回的数据
         CorrelationData correlationData = new CorrelationData();
         correlationData.setId(order.getMessageId());
-       rabbitTemplate.convertAndSend(TOPIC_EXCHANGE,JAVAYOHO_TOPIC,order,correlationData);
+        rabbitSender.sendExchange(TOPIC_EXCHANGE,JAVAYOHO_TOPIC,order,correlationData);
     }
 
 }
