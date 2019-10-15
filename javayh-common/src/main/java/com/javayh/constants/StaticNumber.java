@@ -49,4 +49,6 @@ public interface StaticNumber {
     String CONSUMER_TRY_FAILURE = "3";
 
     String YMDHMS = "yyyy-MM-dd HH:mm:ss";
+
+    String PREFIXKEY = "javayh";
 }
