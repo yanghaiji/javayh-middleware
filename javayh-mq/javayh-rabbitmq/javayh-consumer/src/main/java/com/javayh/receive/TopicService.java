@@ -9,6 +9,7 @@ import com.javayh.redis.RedisUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.support.AmqpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import static com.javayh.constants.StaticNumber.*;
  */
 @Slf4j
 @Component
-
+@RabbitListener(queues = JAVAYOHO_TOPIC)
 public class TopicService {
 
     @Autowired
@@ -42,8 +43,8 @@ public class TopicService {
 
     /*类名*/
     String  className = this.getClass().getName();
-
-    @RabbitListener(queues = JAVAYOHO_TOPIC,containerFactory = "rabbitListenerContainerFactory")
+    @RabbitListener(queues = JAVAYOHO_TOPIC)
+    @RabbitHandler
     public void receiveMessage(@Payload Order order, @Headers Map<String,Object> headers, Channel channel) throws IOException {
         /**
          * Delivery Tag 用来标识信道中投递的消息。RabbitMQ 推送消息给 Consumer 时，会附带一个 Delivery Tag，
