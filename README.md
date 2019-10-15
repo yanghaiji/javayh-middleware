@@ -23,5 +23,5 @@
 ##### 6.配置介绍
 
 详情： 
-- [javayh-rabbitmq/README.md](javayh-middleware/javayh-mq/javayh-rabbitmq/README.md)
+- [javayh-rabbitmq/README.md](javayh-mq/javayh-rabbitmq/README.md)
   
