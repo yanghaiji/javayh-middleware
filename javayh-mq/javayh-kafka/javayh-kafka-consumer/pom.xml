@@ -4,30 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.javayh</groupId>
-        <artifactId>javayh-mq</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
+        <artifactId>javayh-kafka</artifactId>
+        <version>0.0.1-SNAPSHOT</version> <!-- lookup parent from repository -->
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>com.javayh</groupId>
-    <artifactId>javayh-rabbitmq</artifactId>
+    <artifactId>javayh-kafka-consumer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>javayh-rabbitmq</name>
-    <description>Demo project for Spring Boot</description>
-    <packaging>pom</packaging>
+    <name>javayh-kafka-consumer</name>
+    <description>javayh-kafka-consumer</description>
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
-    <modules>
-        <module>javayh-rabbitmq-consumer</module>
-        <module>javayh-rabbitmq-producer</module>
-    </modules>
 
     <dependencies>
-        <dependency>
-            <groupId>com.javayh</groupId>
-            <artifactId>javayh-config</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
     <build>

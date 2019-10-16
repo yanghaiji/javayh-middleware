@@ -9,10 +9,13 @@
         --javayh-common                 common
         --javayh-mq                     mq组件
             --javayh-rabbitmq           rabbitmq示例
-                --javayh-consumer       消费者
-                --javayh-producer       生产者
-        --javayh-cahe                   常用缓存
-            --javayh-redis                raedis 示例
+                --javayh-rabbitmq-consumer          消费者
+                --javayh-rabbitmq-producer          生产者
+            --javayh-kafka              kafka示例            
+                --javayh-kafka-consumer             消费者
+                --javayh-kafka-producer             生产者
+        --javayh-cahe                    常用缓存
+            --javayh-redis               raedis 示例
        
 ## 二、Rabbitmq示例
 ### 1.目录

@@ -4,22 +4,22 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.javayh</groupId>
-        <artifactId>javayh-middleware</artifactId>
+        <artifactId>javayh-mq</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.javayh</groupId>
-    <artifactId>javayh-mq</artifactId>
+    <artifactId>javayh-kafka</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>javayh-mq</name>
+    <name>javayh-kafka</name>
     <description>Demo project for Spring Boot</description>
-    <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <modules>
-        <module>javayh-rabbitmq</module>
-        <module>javayh-kafka</module>
+        <module>javayh-kafka-producer</module>
+        <module>javayh-kafka-consumer</module>
     </modules>
 
     <dependencies>
@@ -27,21 +27,6 @@
             <groupId>com.javayh</groupId>
             <artifactId>javayh-common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.javayh</groupId>
-            <artifactId>javayh-redis</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
         </dependency>
     </dependencies>
 
