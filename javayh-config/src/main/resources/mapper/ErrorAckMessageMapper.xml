@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.javayh.dao.ErrorAckMessageDao" >
+<mapper namespace="com.javayh.conf.dao.ErrorAckMessageDao" >
 
-  <insert id="insertAll" parameterType="com.javayh.entity.ErrorAckMessage" >
+  <insert id="insertAll" parameterType="com.javayh.common.entity.ErrorAckMessage" >
     insert into error_ack_message
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

@@ -1,11 +1,9 @@
-package com.javayh.rabbit.producer.dao;
-
+package com.javayh.conf.dao;
 
 import com.javayh.common.entity.Order;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-@Mapper
 @Repository
 public interface OrderMapper {
     int insert(Order record);

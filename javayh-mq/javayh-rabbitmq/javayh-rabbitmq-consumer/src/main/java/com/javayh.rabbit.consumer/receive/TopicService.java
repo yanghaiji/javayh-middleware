@@ -1,11 +1,11 @@
 package com.javayh.rabbit.consumer.receive;
 
-import com.javayh.constants.AckAction;
-import com.javayh.constants.FastJsonConvertUtil;
-import com.javayh.entity.ErrorAckMessage;
-import com.javayh.entity.Order;
-import com.javayh.rabbit.consumer.dao.ErrorAckMessageDao;
-import com.javayh.redis.RedisUtil;
+import com.javayh.common.constants.AckAction;
+import com.javayh.common.constants.FastJsonConvertUtil;
+import com.javayh.common.entity.ErrorAckMessage;
+import com.javayh.common.entity.Order;
+import com.javayh.conf.dao.ErrorAckMessageDao;
+import com.javayh.redis.redis.RedisUtil;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -21,10 +21,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
-import static com.javayh.constants.StaticNumber.CONSUMER_FAILURE;
-import static com.javayh.constants.StaticNumber.CONSUMER_TRY_FAILURE;
-import static com.javayh.constants.StaticNumber.JAVAYOHO_TOPIC;
-import static com.javayh.constants.StaticNumber.YMDHMS;
+import static com.javayh.common.constants.StaticNumber.*;
 
 /**
  * @author Dylan Yang

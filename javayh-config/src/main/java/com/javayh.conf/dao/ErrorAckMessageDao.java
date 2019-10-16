@@ -1,9 +1,9 @@
-package com.javayh.rabbit.consumer.dao;
+package com.javayh.conf.dao;
 
-import com.javayh.entity.ErrorAckMessage;
-import org.apache.ibatis.annotations.Mapper;
+import com.javayh.common.entity.ErrorAckMessage;
+import org.springframework.stereotype.Repository;
 
-@Mapper
+@Repository
 public interface ErrorAckMessageDao {
 
     /**

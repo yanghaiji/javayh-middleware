@@ -3,7 +3,7 @@ package com.javayh.rabbit.producer.task;
 import com.javayh.common.constants.FastJsonConvertUtil;
 import com.javayh.common.entity.BrokerMessageLog;
 import com.javayh.common.entity.Order;
-import com.javayh.rabbit.producer.dao.BrokerMessageLogMapper;
+import com.javayh.conf.dao.BrokerMessageLogMapper;
 import com.javayh.rabbit.producer.service.RabbitProducerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

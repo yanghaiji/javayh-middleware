@@ -10,6 +10,7 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -20,12 +21,10 @@ import static com.javayh.common.constants.StaticNumber.SUCCESSFUL_DELIVERY;
 public class RabbitRroducerConfig {
 
     @Autowired
-    private ConnectionFactory connectionFactory;
-    @Autowired
     private BrokerMessageLogMapper brokerMessageLogMapper;
 
     @Bean
-    public RabbitTemplate rabbitTemplate() {
+    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
         // 消息是否成功发送到Exchange

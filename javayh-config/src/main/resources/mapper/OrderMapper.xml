@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.javayh.rabbit.producer.dao.OrderMapper" >
+<mapper namespace="com.javayh.conf.dao.OrderMapper" >
   <resultMap id="BaseResultMap" type="com.javayh.common.entity.Order" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -79,7 +79,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insert" parameterType="com.javayh.entity.Order" >
+  <insert id="insert" parameterType="com.javayh.common.entity.Order" >
     insert into t_order (id, name, message_id
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{messageId,jdbcType=VARCHAR}
