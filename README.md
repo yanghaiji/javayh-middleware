@@ -93,11 +93,12 @@
 ### 3.详情：
  - [RabbitMQ详细介绍](javayh-mq/javayh-rabbitmq/README.md)
  
-## Redis示例
+## 三、Redis示例
 
 ### 1.目录
 - Redis数据结构
 - 持久化方式
+- 配置文件
 
 ### 2.代码示例
      根据key获取value
