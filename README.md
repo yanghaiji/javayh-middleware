@@ -92,6 +92,23 @@
             } 
 ### 3.详情：
  - [RabbitMQ详细介绍](javayh-mq/javayh-rabbitmq/README.md)
+ 
+## Redis示例
 
+### 1.目录
+- Redis数据结构
+- 持久化方式
 
+### 2.代码示例
+     根据key获取value
+     redisUtil.get("javayh");
+     
+     将数据保存,并设置过期时间
+     redisUtil.set("javayh","javayh",10);
+     
+     根据key获取锁,最大等待10s,10s后自动解锁
+     RedissonLockUtil.tryLock("javayh", TimeUnit.SECONDS,10,10);
+
+### 3.详情：
+ - [Redis学习示例](javayh-cache/javayh-redis/README.md)
   
