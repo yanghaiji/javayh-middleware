@@ -1,4 +1,4 @@
-package com.javayh.rabbit.consumer.conf;
+package com.javayh.conf.rabbit;
 
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
