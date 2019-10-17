@@ -50,5 +50,6 @@ public interface StaticNumber {
 
     String YMDHMS = "yyyy-MM-dd HH:mm:ss";
 
+    String JAVAYOHO = "JavaYoHo";
     String PREFIXKEY = "javayh";
 }

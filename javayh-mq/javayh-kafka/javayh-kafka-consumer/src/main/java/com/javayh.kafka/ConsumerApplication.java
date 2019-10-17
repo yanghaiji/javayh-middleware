@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @Slf4j
 @ComponentScan(value = "com.javayh.*")
+@MapperScan(value = "com.javayh.conf.*")
 @SpringBootApplication
 public class ConsumerApplication {
 

@@ -25,7 +25,7 @@
     <dependencies>
         <dependency>
             <groupId>com.javayh</groupId>
-            <artifactId>javayh-common</artifactId>
+            <artifactId>javayh-config</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

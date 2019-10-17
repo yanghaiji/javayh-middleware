@@ -1,10 +1,18 @@
 server:
-  port: 8001
+  port: 8023
 ## producer配置
 spring:
   application:
     name: kafka-producer
-
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      bootstrap-servers: localhost:9092
+      batch-size: 16785                                   # 一次最多发送的数据量
+      retries: 1                                          #发送失败后的重复发送次数
+      buffer-memory: 33554432                            #32M批处理缓冲区
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   datasource:
     url: jdbc:mysql://localhost:3306/rabbitmq?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull
     username: root
@@ -26,6 +34,10 @@ mybatis:
     call-setters-on-nulls: true #map空列不显示问题
   mapper-locations: classpath:mapper/*.xml
 
-logging:
-  level:
-    com.javayh.dao: DEBUG
+kafka:
+  topic:
+    group-id: javayh-kafka
+    topic-name:
+      - JavaYoHo
+      - YangHaiJi
+      - Dylan
