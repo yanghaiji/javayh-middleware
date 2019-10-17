@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@ComponentScan(basePackages = {"com.javayh.redis.*"})
+@ComponentScan(basePackages = {"com.javayh.*"})
 @MapperScan(value = "com.javayh.conf.*")
 @SpringBootApplication
 @RestController

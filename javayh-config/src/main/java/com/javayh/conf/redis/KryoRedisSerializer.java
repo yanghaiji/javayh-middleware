@@ -1,4 +1,4 @@
-package com.javayh.redis.config;
+package com.javayh.conf.redis;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
@@ -10,6 +10,12 @@ import org.springframework.data.redis.serializer.SerializationException;
 
 import java.io.ByteArrayOutputStream;
 
+/**
+ * @Description redis序列化
+ * @UserModule:
+ * @author Dylan
+ * @date 2019/10/17
+ */
 public class KryoRedisSerializer<T> implements RedisSerializer<T> {
     Logger logger = LoggerFactory.getLogger(KryoRedisSerializer.class);
 
@@ -58,7 +64,6 @@ public class KryoRedisSerializer<T> implements RedisSerializer<T> {
         kryo.register(clazz);
 
         try (Input input = new Input(bytes)) {
-//            SynchronizedCollectionsSerializer.registerSerializers(kryo);
             return (T) kryo.readClassAndObject(input);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

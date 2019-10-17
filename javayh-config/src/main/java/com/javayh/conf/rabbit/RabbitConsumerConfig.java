@@ -1,4 +1,4 @@
-package com.javayh.conf.config;
+package com.javayh.conf.rabbit;
 
 import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;

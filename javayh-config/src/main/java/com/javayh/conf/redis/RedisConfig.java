@@ -1,4 +1,4 @@
-package com.javayh.redis.config;
+package com.javayh.conf.redis;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,16 +19,13 @@ public class RedisConfig {
 	public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 		RedisTemplate<Object, Object> redisTemplate = new RedisTemplate<>();
 		redisTemplate.setConnectionFactory(redisConnectionFactory);
-//		JdkSerializationRedisSerializer jdkSerializationRedisSerializer = new JdkSerializationRedisSerializer();
-		KryoRedisSerializer<Object> kryo = new KryoRedisSerializer<Object>(Object.class); 
+		KryoRedisSerializer<Object> kryo = new KryoRedisSerializer<Object>(Object.class);
 		// 设置value的序列化规则和 key的序列化规则
 		redisTemplate.setStringSerializer(new StringRedisSerializer());
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(kryo);
-//		redisTemplate.setValueSerializer(jdkSerializationRedisSerializer);
 		redisTemplate.setHashKeySerializer(new StringRedisSerializer());
 		redisTemplate.setHashValueSerializer(kryo);
-//		redisTemplate.setHashValueSerializer(jdkSerializationRedisSerializer);
 		redisTemplate.afterPropertiesSet();
 		return redisTemplate;
 	}

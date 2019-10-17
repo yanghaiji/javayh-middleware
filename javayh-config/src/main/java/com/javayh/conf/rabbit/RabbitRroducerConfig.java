@@ -1,4 +1,4 @@
-package com.javayh.conf.config;
+package com.javayh.conf.rabbit;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;

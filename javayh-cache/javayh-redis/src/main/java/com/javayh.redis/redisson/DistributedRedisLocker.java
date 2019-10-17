@@ -51,7 +51,7 @@ public interface DistributedRedisLocker {
 
     /**
      * 释放锁
-     * @param lockKey
+     * @param lock
      */
     void unlock(RLock lock);
 }

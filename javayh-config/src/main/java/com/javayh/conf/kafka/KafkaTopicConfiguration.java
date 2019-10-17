@@ -1,4 +1,4 @@
-package com.javayh.conf.config;
+package com.javayh.conf.kafka;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

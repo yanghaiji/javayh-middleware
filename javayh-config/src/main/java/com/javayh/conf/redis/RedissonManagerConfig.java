@@ -1,7 +1,5 @@
-package com.javayh.redis.config;
+package com.javayh.conf.redis;
 
-import com.javayh.redis.redisson.impl.RedissonDistributedLocker;
-import com.javayh.redis.redisson.util.RedissonLockUtil;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -46,14 +44,6 @@ public class RedissonManagerConfig {
             singleServerConfig.setPassword(password);
         }
         return Redisson.create(config);
-    }
-
-    @Bean
-    public RedissonDistributedLocker redissonLocker(RedissonClient redissonClient) {
-        RedissonDistributedLocker locker = new RedissonDistributedLocker(redissonClient);
-        //设置LockUtil的锁处理对象
-        RedissonLockUtil.setLocker(locker);
-        return locker;
     }
 
 //    @Profile("pro")
