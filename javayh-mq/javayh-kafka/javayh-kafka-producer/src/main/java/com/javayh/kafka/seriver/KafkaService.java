@@ -1,6 +1,6 @@
 package com.javayh.kafka.seriver;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.json.JSONUtil;
 import com.javayh.common.entity.Order;
 import com.javayh.conf.mq.KafkaSender;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,13 @@ public class KafkaService {
     @Autowired
     private KafkaSender kafkaSender;
 
+    /**
+     * 发送消息
+     * @param order
+     * @return
+     */
     public String send(Order order){
-        kafkaSender.sendTopic(JAVAYOHO, JSON.toJSONString(order));
+        kafkaSender.sendTopic(JAVAYOHO, JSONUtil.toJsonStr(order));
         return "kafka";
     }
 }
