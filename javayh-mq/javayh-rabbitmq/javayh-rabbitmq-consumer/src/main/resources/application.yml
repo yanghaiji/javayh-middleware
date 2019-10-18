@@ -16,12 +16,14 @@ spring:
     #每一个虚拟机主机之间是相互隔离，相互独立的，
     #授权用户到指定的virtual-host就可以发送消息到指定队列)
     virtual-host: dev
+    publisher-returns: true #返回确认
+    publisher-confirms: true # 成功确认
     ## 消费端配置
     listener:
       simple:
         concurrency: 1 # 最小消费者数量
         acknowledge-mode: manual #手动消费，默认是自动消费
-        max-concurrency: 10 # 最大消费者数量
+        max-concurrency: 500 # 最大消费者数量
         prefetch: 150 # （unack消息的积压问题） 最大同时处理的数量
         retry:
           enabled: true     #是否支持重试 默认支持

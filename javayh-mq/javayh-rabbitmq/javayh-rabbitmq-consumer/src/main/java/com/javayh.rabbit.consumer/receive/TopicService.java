@@ -59,14 +59,11 @@ public class TopicService {
         boolean multiple = false;
         /*应答模式*/
         String ackAction = AckAction.ACK_SUCCESSFUL;
-        log.info("---------收到消息，开始消费---------");
-        log.info("订单ID："+order.getId());
-        channel.basicAck(deliveryTag,multiple);
-        log.info("cheng");
+//        log.info("cheng");
         try{
             //消费者操作
-            log.info("---------收到消息，开始消费---------");
-            log.info("订单ID："+order.getId());
+//            log.info("---------收到消息，开始消费---------");
+//            log.info("订单ID："+order.getId());
             String messageId = order.getMessageId();
 //            Integer.valueOf(messageId);
         }catch (Exception e){
@@ -120,6 +117,11 @@ public class TopicService {
                 //ACK,确认一条消息已经被消费
                 channel.basicAck(deliveryTag,multiple);
                 log.info("cheng");
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             } else if (ackAction == AckAction.ACK_RETRY) {//重新加入队列
                 channel.basicNack(deliveryTag, false, true);
             } else {//放弃入队，避免消息丢失，入库处理，后期可手动维护
