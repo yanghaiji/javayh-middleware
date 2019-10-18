@@ -20,6 +20,7 @@
     </properties>
     <modules>
         <module>javayh-redis</module>
+        <module>javayh-mongo</module>
     </modules>
 
     <dependencies>

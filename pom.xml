@@ -50,7 +50,53 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+		<!--增强配置-->
+		<!--<dependency>
+            <groupId>com.spring4all</groupId>
+            <artifactId>mongodb-plus-spring-boot-starter</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>-->
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.javayh</groupId>
+			<artifactId>javayh-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson</artifactId>
+			<version>${redisson.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.esotericsoftware</groupId>
+			<artifactId>kryo</artifactId>
+			<version>${esotericsoftware.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>de.javakaffee</groupId>
+			<artifactId>kryo-serializers</artifactId>
+			<version>${javakaffee.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
