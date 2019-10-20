@@ -29,6 +29,7 @@
 		<module>javayh-mq</module>
 		<module>javayh-cache</module>
 		<module>javayh-config</module>
+		<module>javayh-xxl-job</module>
 	</modules>
 	<dependencies>
 		<dependency>
