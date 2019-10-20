@@ -16,6 +16,11 @@
                 --javayh-kafka-producer             生产者
         --javayh-cahe                    常用缓存
             --javayh-redis               raedis 示例
+        --javayh-xxl-job
+            --javayh-xxl-job-admin       job-web端
+            --javayh-xxl-job-core        核心依赖
+            --javayh-xxl-job-executor-samples       定时任务
+            --javayh-xxl-job-executor-sample        定时任务示例
        
 ## 二、Rabbitmq示例
 ### 1.目录
