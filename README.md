@@ -15,7 +15,8 @@
                 --javayh-kafka-consumer             消费者
                 --javayh-kafka-producer             生产者
         --javayh-cahe                    常用缓存
-            --javayh-redis               raedis 示例
+            --javayh-redis               raedis  示例
+            --javayh-mongo               mongodb 示例
         --javayh-xxl-job
             --javayh-xxl-job-admin       job-web端
             --javayh-xxl-job-core        核心依赖
