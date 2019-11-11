@@ -85,4 +85,27 @@ public class RedissonLockUtil {
     public static boolean tryLock(String lockKey, TimeUnit unit, int waitTime, int leaseTime) {
         return redissLock.tryLock(lockKey, unit, waitTime, leaseTime);
     }
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param perNum    生成个数
+     * @param time      所需要时间
+     * @return
+     */
+    public static boolean trySetRate(String key,long perNum, long time) {
+        return redissLock.trySetRate(key,perNum, time);
+    }
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param permits   等待时间
+     * @param timeout   超时时间
+     */
+    public static boolean tryAcquire(String key, long permits, long timeout) {
+        boolean b = redissLock.tryAcquire(key,permits, timeout);
+        return b;
+    }
+
 }

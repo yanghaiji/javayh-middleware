@@ -2,6 +2,9 @@ package com.javayh.redis.redisson.impl;
 
 import com.javayh.redis.redisson.DistributedRedisLocker;
 import org.redisson.api.RLock;
+import org.redisson.api.RRateLimiter;
+import org.redisson.api.RateIntervalUnit;
+import org.redisson.api.RateType;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
@@ -91,6 +94,30 @@ public class RedissonDistributedLocker implements DistributedRedisLocker {
     @Override
     public void unlock(RLock lock) {
         lock.unlock();
+    }
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param perNum    生成个数
+     * @param time      所需要时间
+     * @return
+     */
+    @Override
+    public boolean trySetRate(String key,long perNum, long time) {
+        boolean b = redissonClient.getRateLimiter(key).trySetRate(RateType.OVERALL, perNum, time, RateIntervalUnit.SECONDS);
+        return b;
+    }
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param permits   等待时间
+     * @param timeout   超时时间
+     */
+    public boolean tryAcquire(String key,long permits, long timeout) {
+        boolean b = redissonClient.getRateLimiter(key).tryAcquire(permits, timeout, TimeUnit.SECONDS);
+        return b;
     }
 
     public void setRedissonClient(RedissonClient redissonClient) {

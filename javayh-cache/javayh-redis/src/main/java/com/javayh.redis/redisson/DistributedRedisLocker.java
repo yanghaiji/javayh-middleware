@@ -54,4 +54,20 @@ public interface DistributedRedisLocker {
      * @param lock
      */
     void unlock(RLock lock);
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param perNum   等待时间
+     * @param time   超时时间
+     */
+    boolean trySetRate(String key,long perNum, long time);
+
+    /**
+     * 限流器
+     * @param key       限流key
+     * @param permits   等待时间
+     * @param timeout   超时时间
+     */
+    boolean tryAcquire(String key,long permits, long timeout);
 }
