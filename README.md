@@ -121,4 +121,17 @@
 
 ### 3.详情：
  - [Redis学习示例](javayh-cache/javayh-redis/README.md)
+ ## 关注 Java有货领取更多资料
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20191112104505246.jpg)
+**如遇到问题可以联系小编。微信：372787553，互相学习**
+
+**技术博客：[https://blog.csdn.net/weixin_38937840](https://blog.csdn.net/weixin_38937840)**
+
+**SpringCloud学习代码： [https://github.com/Dylan-haiji/javayh-cloud](https://github.com/Dylan-haiji/javayh-cloud)**
+
+**Redis、Mongo、Rabbitmq、Kafka学习代码： [https://github.com/Dylan-haiji/javayh-middleware](https://github.com/Dylan-haiji/javayh-middleware)**
+
+**AlibabaCloud学习代码：[https://github.com/Dylan-haiji/javayh-cloud-nacos](https://github.com/Dylan-haiji/javayh-cloud-nacos)**
+**SpringBoot+SpringSecurity实现自定义登录学习代码：[https://github.com/Dylan-haiji/javayh-distribution](https://github.com/Dylan-haiji/javayh-distribution)**
+
   
