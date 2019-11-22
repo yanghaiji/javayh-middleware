@@ -22,6 +22,8 @@
             --javayh-xxl-job-core        核心依赖
             --javayh-xxl-job-executor-samples       定时任务
             --javayh-xxl-job-executor-sample        定时任务示例
+        --javayh-monitor                监控平台
+            --javayh-druid              Druid监控    
        
 ## 二、Rabbitmq示例
 ### 1.目录
