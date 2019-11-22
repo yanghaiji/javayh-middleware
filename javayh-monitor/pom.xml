@@ -6,22 +6,25 @@
         <groupId>com.javayh</groupId>
         <artifactId>javayh-middleware</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.javayh</groupId>
-    <artifactId>javayh-config</artifactId>
+    <artifactId>javayh-monitor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>javayh-config</name>
-    <description>javayh-config</description>
-    <packaging>jar</packaging>
+    <name>javayh-monitor</name>
+    <description>Demo project for Spring Boot</description>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
+    <modules>
+        <module>javayh-druid</module>
+    </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.javayh</groupId>
-            <artifactId>javayh-common</artifactId>
+            <artifactId>javayh-config</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>

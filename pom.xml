@@ -30,6 +30,7 @@
 		<module>javayh-cache</module>
 		<module>javayh-config</module>
 		<module>javayh-xxl-job</module>
+		<module>javayh-monitor</module>
 	</modules>
 	<dependencies>
 		<dependency>
@@ -71,11 +72,6 @@
 			<artifactId>spring-boot-starter-amqp</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.javayh</groupId>
-			<artifactId>javayh-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
@@ -97,6 +93,11 @@
 			<groupId>de.javakaffee</groupId>
 			<artifactId>kryo-serializers</artifactId>
 			<version>${javakaffee.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid-spring-boot-starter</artifactId>
+			<version>${druid.version}</version>
 		</dependency>
 	</dependencies>
 
