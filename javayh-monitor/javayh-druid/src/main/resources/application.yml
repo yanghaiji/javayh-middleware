@@ -38,6 +38,7 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       #监控统计拦截的filters
       filters: stat,wall
+      aop-patterns: com.javayh.druid.*
       web-stat-filter:
         enabled: true #是否启用StatFilter默认值true
         url-pattern: /*
